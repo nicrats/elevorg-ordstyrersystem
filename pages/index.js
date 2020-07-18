@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Elevorganisasjonen Taleliste System</title>
+        <title>EO Talerliste</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
