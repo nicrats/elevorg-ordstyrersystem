@@ -1,10 +1,37 @@
 import React from "react";
 import { useTable } from "react-table";
 
+var innlegg = [
+  {Number: "1", Sak: "innlegg"},
+  {Number: "2", Sak: "Replikk"},
+  {Number: "1", Sak: "Opplysning"},
+  {Number: "2", Sak: "SvarReplikk"}
+];
+
 const data = [
   { Number: "1", Name: "Sondre Vinding", Org: "Elevorganisasjonen i Oslo Vest" },
   { Number: "2", Name: "Daniel Martinsen", Org: "Elevorganisasjonen i Viken" }
 ];
+
+function Count() {
+  const [counter, setCounter] = React.useState(60);
+
+  // Third Attempts
+  React.useEffect(() => {
+    const timer =
+      counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
+    return () => clearInterval(timer);
+  }, [counter]);
+
+  return (
+    <div className="Count">
+      <div>Countdown: {counter}</div>
+    </div>
+  );
+}
+
+
+
 
 const columns = [
   {
@@ -70,6 +97,7 @@ export default function App() {
   return (
         <div className="App">
             <main>    
+                
                 <Table columns={columns} data={data} />
             </main>
             <footer>
