@@ -20,7 +20,7 @@ export default function Home() {
             <p>Ordliste, legg til, fjern og endre deltagere.</p>
           </a>
 
-          <a href='./ordet' className='card'>
+          <a href='./debattkontroll' className='card'>
             <h3>Styr ordet &rarr;</h3>
             <p>Styr ordet med forskjellige redskaper</p>
           </a>
