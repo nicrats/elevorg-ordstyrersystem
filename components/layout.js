@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 import styles from '../styles/layout.module.scss'
 
-export default function Layout() {
+export default function Layout({ children }) {
   return (
     <div className={styles.container}>
       <Head>
@@ -43,6 +43,10 @@ export default function Layout() {
             </div>
           </Link>
         </div>
+
+        <div style={{ marginTop: '3rem' }}></div>
+
+        {children}
       </main>
     </div>
   )

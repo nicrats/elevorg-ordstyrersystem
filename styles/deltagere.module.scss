@@ -1,0 +1,23 @@
+.actionButtons {
+  width: 100%;
+  padding: 10px 0px;
+  align-items: flex-start;
+
+  button {
+    margin-right: 5px;
+    padding: 10px;
+    outline: none;
+    border: 1px solid #0a466e;
+    border-radius: 4px;
+
+    background-color: transparent;
+    color: #0a466e;
+    font-size: 15px;
+
+    &:hover {
+      cursor: pointer;
+      background-color: #0a466e;
+      color: #73ffd7;
+    }
+  }
+}
