@@ -1,1 +1,1 @@
-This is a starter template for [Learn Next.js](https://nextjs.org/learn).
+Talerliste system, laget av Sondre Vinding og Daniel Martinsen. Laga for EO for bruk på arrangementer
