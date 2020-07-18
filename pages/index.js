@@ -10,30 +10,37 @@ export default function Home() {
       </Head>
 
       <main>
-        <h1 className='title'>Taleliste</h1>
-
-        <p className='description'>Ordliste system laget av Sondre Vinding og Daniel Martinsen</p>
+        <h1 className='title'>Talerliste</h1>
+        <p className='description'>Talerliste-system laget av Sondre Vinding og Daniel Martinsen</p>
 
         <div className='grid'>
-          <a href='./table' className='card'>
-            <h3>Deltagere &rarr;</h3>
-            <p>Ordliste, legg til, fjern og endre deltagere.</p>
-          </a>
+          <Link href='/deltagere'>
+            <div className='card'>
+              <h3>Deltagere &rarr;</h3>
+              <p>Legg til, fjern og endre deltagere.</p>
+            </div>
+          </Link>
 
-          <a href='./debattkontroll' className='card'>
-            <h3>Styr ordet &rarr;</h3>
-            <p>Styr ordet med forskjellige redskaper</p>
-          </a>
+          <Link href='/debattkontroll'>
+            <div className='card'>
+              <h3>Styr ordet &rarr;</h3>
+              <p>Styr ordet, og skjerm-grafikken.</p>
+            </div>
+          </Link>
 
-          <a href='./statistikk' className='card'>
-            <h3>Statistikk &rarr;</h3>
-            <p>Statistikk (test prosjekt)</p>
-          </a>
+          <Link href='/statistikk'>
+            <div className='card'>
+              <h3>Statistikk &rarr;</h3>
+              <p>Se dagens statistikk basert på debatten.</p>
+            </div>
+          </Link>
 
-          <a href='./talerliste' className='card'>
-            <h3>Talerliste &rarr;</h3>
-            <p>Se hvem som er nesteman i talerlista.</p>
-          </a>
+          <Link href='/skjermgrafikk'>
+            <div className='card'>
+              <h3>Fullskjerm &rarr;</h3>
+              <p>Skjerm-grafikk med talere og replikker.</p>
+            </div>
+          </Link>
         </div>
       </main>
 
