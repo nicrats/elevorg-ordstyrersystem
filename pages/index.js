@@ -1,60 +1,45 @@
 import Head from 'next/head'
 import Link from 'next/link'
 
-
 export default function Home() {
   return (
-    <div className="container">
+    <div className='container'>
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Elevorganisasjonen Taleliste System</title>
+        <link rel='icon' href='/favicon.ico' />
       </Head>
 
       <main>
-        <h1 className="title">
-          Ordliste system
-        </h1>
+        <h1 className='title'>Taleliste</h1>
 
-        <p className="description">
-          Ordliste system laget av Sondre Vinding og Daniel Martinsen
-        </p>
+        <p className='description'>Ordliste system laget av Sondre Vinding og Daniel Martinsen</p>
 
-        <div className="grid">
-          <a href="./table" className="card">
-            <h3>Endre ordliste &rarr;</h3>
+        <div className='grid'>
+          <a href='./table' className='card'>
+            <h3>Deltagere &rarr;</h3>
             <p>Ordliste, legg til, fjern og endre deltagere.</p>
           </a>
 
-          <a href="./ordet" className="card">
+          <a href='./ordet' className='card'>
             <h3>Styr ordet &rarr;</h3>
             <p>Styr ordet med forskjellige redskaper</p>
           </a>
 
-          <a href="./statistikk" className="card">
+          <a href='./statistikk' className='card'>
             <h3>Statistikk &rarr;</h3>
             <p>Statistikk (test prosjekt)</p>
           </a>
 
-          <a
-            href="./talerliste"
-            className="card"
-          >
+          <a href='./talerliste' className='card'>
             <h3>Talerliste &rarr;</h3>
-            <p>
-              Se hvem som er nesteman i talerlista.
-            </p>
+            <p>Se hvem som er nesteman i talerlista.</p>
           </a>
         </div>
       </main>
 
       <footer>
-        <a
-          href="https://elev.no"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Levert for{' '}
-          <img src="./logo.png" alt="EO Logo" className="logo" />
+        <a href='https://elev.no' target='_blank' rel='noopener noreferrer'>
+          Levert for <img src='./logo.png' alt='EO Logo' className='logo' />
         </a>
       </footer>
 
@@ -133,8 +118,8 @@ export default function Home() {
           border-radius: 5px;
           padding: 0.75rem;
           font-size: 1.1rem;
-          font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-            DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+          font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
+            Bitstream Vera Sans Mono, Courier New, monospace;
         }
 
         .grid {
@@ -194,9 +179,8 @@ export default function Home() {
         body {
           padding: 0;
           margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
+          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
+            Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
         }
 
         * {
