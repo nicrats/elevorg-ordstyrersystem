@@ -25,7 +25,7 @@ export default function Home() {
             </div>
           </Link>
 
-          <Link href='/debattkontroll'>
+          <Link href='/debatt'>
             <div className={styles.card}>
               <h3>Styr ordet &rarr;</h3>
               <p>Styr ordet, og skjerm-grafikken.</p>

@@ -25,7 +25,7 @@ export default function Layout({ children }) {
             </div>
           </Link>
 
-          <Link href='/debattkontroll'>
+          <Link href='/debatt'>
             <div className={styles.card}>
               <h3>Styr ordet</h3>
             </div>
