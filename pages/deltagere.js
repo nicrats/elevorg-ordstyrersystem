@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { loadFirebase } from '../lib/firebase'
 
+import Papa from 'papaparse'
+
 import styles from '../styles/deltagere.module.scss'
 import modalStyles from '../styles/modal.module.scss'
 import tableStyles from '../styles/table.module.scss'
@@ -103,6 +105,22 @@ export default function Deltagere() {
     setOrg('')
     setRolle('')
   }
+
+  const [rows, setRows] = React.useState([])
+  React.useEffect(() => {
+    async function getData() {
+      const response = await fetch('./data.csv')
+      const reader = response.body.getReader()
+      const result = await reader.read() // raw array
+      const decoder = new TextDecoder('utf-8')
+      const csv = decoder.decode(result.value) // the csv text
+      const results = Papa.parse(csv, { header: true }) // object with { data, errors, meta }
+      const rows = results.data // array of objects
+      setRows(rows)
+    }
+    getData()
+    console.log(rows)
+  },) //burde gjøre csv om til en array, arrayen er rows. Inputen til arrayen er response
 
   return (
     <Layout>
@@ -216,7 +234,6 @@ export default function Deltagere() {
 
       <div className={styles.actionButtons}>
         <button onClick={() => handleOpen()}>Legg til en deltager</button>
-        <button>Importer deltagere fra en .CSV fil</button>
       </div>
 
       <TableContainer component={Paper}>
