@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { loadFirebase } from '../lib/firebase'
 
-import Import from './import'
+import Import from '../components/import'
 
 import styles from '../styles/deltagere.module.scss'
 import modalStyles from '../styles/modal.module.scss'
