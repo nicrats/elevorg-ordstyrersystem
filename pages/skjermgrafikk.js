@@ -9,6 +9,8 @@ export default function Fullskjerm() {
 
   const [mode, setMode] = useState('debatt')
   const [content, setContent] = useState('')
+  const [nextData, setNextData] = useState({})
+  const [talerlisteData, setTalerlisteData] = useState([])
 
   useEffect(() => {
     return db
@@ -20,23 +22,67 @@ export default function Fullskjerm() {
       })
   }, [])
 
+  useEffect(() => {
+    return db
+      .collection('talerliste')
+      .doc('--config--')
+      .onSnapshot((docSnapshot) => {
+        const next = docSnapshot.data().next
+
+        db.collection('talerliste')
+          .doc(next.toString())
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              setNextData(doc.data())
+            } else {
+              setNextData({ nummer: 'Talerlista er tom', navn: '', org: '' })
+            }
+          })
+
+        db.collection('talerliste')
+          .get()
+          .then((snapshot) => {
+            const talerliste = []
+
+            snapshot.forEach((doc) => {
+              if (doc.id != '--config--') {
+                if (doc.id != next.toString()) {
+                  const data = {}
+                  data.nummer = doc.data().nummer
+                  data.id = parseInt(doc.id)
+                  talerliste.push(data)
+                }
+              }
+            })
+            setTalerlisteData(talerliste.sort((a, b) => a.id - b.id))
+          })
+      })
+  }, [])
+
   if (mode == 'debatt') {
     return (
       <div className={styles.main}>
-        <div className={styles.talelisteDiv}>
+        {/* <div className={styles.talelisteDiv}>
           <p style={{ fontWeight: 700 }}>100</p>
           <p style={{ fontWeight: 700 }}>Daniel Martinsen</p>
           <p style={{ fontWeight: 400 }}>Ås Videregående Skole</p>
-        </div>
+        </div> */}
 
         <div className={styles.talerDiv}>
-          <p style={{ fontWeight: 700 }}>&rarr; 100</p>
-          <p style={{ fontWeight: 700 }}>Daniel Martinsen</p>
-          <p style={{ fontWeight: 400 }}>Ås Videregående</p>
+          <p style={{ fontWeight: 700 }}>{nextData.nummer}</p>
+          <p style={{ fontWeight: 700 }}>{nextData.navn}</p>
+          <p style={{ fontWeight: 400 }}>{nextData.org}</p>
         </div>
 
         <div className={styles.talelisteDiv}>
-          <p>400 150 345 651 363 545 485</p>
+          {talerlisteData.map((taler) => {
+            return (
+              <p key={taler.id} style={{ marginRight: 10 }}>
+                {taler.nummer}
+              </p>
+            )
+          })}
         </div>
       </div>
     )
