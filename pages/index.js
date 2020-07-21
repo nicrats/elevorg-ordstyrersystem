@@ -7,15 +7,12 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>EO Talerliste</title>
+        <title>EO Ordstyrersystem</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
       <main>
-        <h1 className={styles.title}>Talerliste</h1>
-        <p className={styles.description}>
-          Talerliste-system laget av Sondre Vinding og Daniel Martinsen
-        </p>
+        <h1 className={styles.title}>Ordstyrersystem</h1>
 
         <div className={styles.grid}>
           <Link href='/deltagere'>

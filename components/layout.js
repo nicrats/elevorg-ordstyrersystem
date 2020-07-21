@@ -7,7 +7,7 @@ export default function Layout({ children }) {
   return (
     <div className={styles.container}>
       <Head>
-        <title>EO Talerliste</title>
+        <title>EO Ordstyrersystem</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
