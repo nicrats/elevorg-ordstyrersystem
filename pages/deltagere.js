@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { loadFirebase } from '../lib/firebase'
 
-import Papa from 'papaparse'
+import Import from './import'
 
 import styles from '../styles/deltagere.module.scss'
 import modalStyles from '../styles/modal.module.scss'
@@ -40,6 +40,13 @@ export default function Deltagere() {
   }
   const handleCloseEdit = () => setOpenEdit(false)
 
+  const [openImport, setOpenImport] = useState(false)
+  const handleOpenImport = () => setOpenImport(true)
+  const handleCloseImport = () => {
+    loadDeltagere()
+    setOpenImport(false)
+  }
+
   const [deltagere, setDeltagere] = useState([])
 
   const [navn, setNavn] = useState('')
@@ -63,6 +70,8 @@ export default function Deltagere() {
           })
 
           setDeltagere(result)
+        } else {
+          setDeltagere([])
         }
       })
   }
@@ -106,27 +115,15 @@ export default function Deltagere() {
     setRolle('')
   }
 
-  const [rows, setRows] = useState([])
-  useEffect(() => {
-    async function getData() {
-      const response = await fetch('./data.csv')
-      const reader = response.body.getReader()
-      const result = await reader.read() // raw array
-      const decoder = new TextDecoder('utf-8')
-      const csv = decoder.decode(result.value) // the csv text
-      const results = Papa.parse(csv, { header: true }) // object with { data, errors, meta }
-      const rows = results.data // array of objects
-      setRows(rows)
-    }
-    getData()
-    console.log(rows)
-  }) //burde gjøre csv om til en array, arrayen er rows. Inputen til arrayen er response
-
   return (
     <Layout>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle id='alert-dialog-title'>
           <h2 className={modalStyles.modalTitle}>Legg til en ny deltager</h2>
+          <p>
+            PS! Om du bruker et skiltnummer som allerede er i bruk så overstyrer dette tidligere
+            informasjon.
+          </p>
         </DialogTitle>
         <DialogContent>
           <DialogContentText id='alert-dialog-description'>
@@ -171,6 +168,27 @@ export default function Deltagere() {
               className={modalStyles.addButton}
               style={{ marginLeft: 10 }}
               onClick={() => handleClose()}
+            />
+          </DialogContentText>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={openImport} onClose={handleCloseImport}>
+        <DialogTitle id='alert-dialog-title'>
+          <h2 className={modalStyles.modalTitle}>Importer deltagere</h2>
+          <p>
+            Import deltagere fra en .csv fil her. Filen må være kommaskilt og i rekkefølgen Navn,
+            Skiltnummer, Organisasjon, Rolle og uten header.
+          </p>
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id='alert-dialog-description'>
+            <Import />
+            <input
+              type='button'
+              value='Ferdig'
+              className={modalStyles.addButton}
+              onClick={() => handleCloseImport()}
             />
           </DialogContentText>
         </DialogContent>
@@ -234,6 +252,7 @@ export default function Deltagere() {
 
       <div className={styles.actionButtons}>
         <button onClick={() => handleOpen()}>Legg til en deltager</button>
+        <button onClick={() => handleOpenImport()}>Importer deltagere</button>
       </div>
 
       <TableContainer component={Paper}>
@@ -249,7 +268,7 @@ export default function Deltagere() {
           </TableHead>
           <TableBody className={tableStyles.tableBody}>
             {deltagere.map((row) => (
-              <TableRow>
+              <TableRow key={row.nummer}>
                 <TableCell>{row.nummer}</TableCell>
                 <TableCell>{row.navn}</TableCell>
                 <TableCell>{row.organisasjon}</TableCell>
