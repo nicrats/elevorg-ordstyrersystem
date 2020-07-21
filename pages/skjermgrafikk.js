@@ -8,13 +8,15 @@ export default function Fullskjerm() {
   const db = firebase.firestore()
 
   const [mode, setMode] = useState('debatt')
+  const [content, setContent] = useState('')
 
   useEffect(() => {
-    db.collection('main')
+    return db
+      .collection('main')
       .doc('config')
-      .get()
-      .then((doc) => {
-        setMode(doc.data().mode)
+      .onSnapshot((docSnapshot) => {
+        setMode(docSnapshot.data().mode)
+        setContent(docSnapshot.data().content)
       })
   }, [])
 
@@ -38,10 +40,10 @@ export default function Fullskjerm() {
         </div>
       </div>
     )
-  } else if ((mode = 'pause')) {
+  } else if (mode == 'pause') {
     return (
       <div className={styles.main}>
-        <div className={styles.beskjedDiv}>Pause frem til 12:00</div>
+        <div className={styles.beskjedDiv}>{content}</div>
       </div>
     )
   }
