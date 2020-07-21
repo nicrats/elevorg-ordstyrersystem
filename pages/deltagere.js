@@ -106,8 +106,8 @@ export default function Deltagere() {
     setRolle('')
   }
 
-  const [rows, setRows] = React.useState([])
-  React.useEffect(() => {
+  const [rows, setRows] = useState([])
+  useEffect(() => {
     async function getData() {
       const response = await fetch('./data.csv')
       const reader = response.body.getReader()
@@ -120,7 +120,7 @@ export default function Deltagere() {
     }
     getData()
     console.log(rows)
-  },) //burde gjøre csv om til en array, arrayen er rows. Inputen til arrayen er response
+  }) //burde gjøre csv om til en array, arrayen er rows. Inputen til arrayen er response
 
   return (
     <Layout>
