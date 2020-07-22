@@ -12,7 +12,7 @@ export default function Home() {
       </Head>
 
       <main>
-        <h1 className={styles.title}>EO Ordstyrersystem</h1>
+        <h1 className={styles.title}>EO Talerliste system</h1>
 
         <div className={styles.grid}>
           <Link href='/deltagere'>
