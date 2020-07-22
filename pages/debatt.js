@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import Layout from '../components/layout'
 import { loadFirebase } from '../lib/firebase'
+import { loadCSS } from 'fg-loadcss'
 import * as moment from 'moment'
 
+import Icon from '@material-ui/core/Icon'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
@@ -33,6 +35,13 @@ export default function Debatt() {
   const [isActive, setIsActive] = useState(false)
 
   useEffect(() => {
+    loadCSS(
+      'https://use.fontawesome.com/releases/v5.12.0/css/all.css',
+      document.querySelector('#font-awsome-css')
+    )
+  }, [])
+
+  useEffect(() => {
     db.collection('main')
       .doc('config')
       .get()
@@ -47,9 +56,11 @@ export default function Debatt() {
 
       docSnapshot.forEach((doc) => {
         if (doc.id != '--config--') {
-          const data = doc.data()
-          data.id = parseInt(doc.id)
-          talerliste.push(data)
+          if (doc.data().skip == false) {
+            const data = doc.data()
+            data.id = parseInt(doc.id)
+            talerliste.push(data)
+          }
         }
       })
       const talerlisteSort = talerliste.sort((a, b) => a.id - b.id)
@@ -170,7 +181,34 @@ export default function Debatt() {
                 const next = doc.data().next
                 const count = doc.data().count
 
-                if (next <= count) {
+                if (next < count) {
+                  db.collection('talerliste')
+                    .doc((next + 1).toString())
+                    .get()
+                    .then((doc) => {
+                      if (doc.data().skip) {
+                        db.collection('talerliste')
+                          .doc(next.toString())
+                          .delete()
+                          .then(() => {
+                            db.collection('talerliste')
+                              .doc('--config--')
+                              .update({ next: next + 2 })
+                          })
+
+                        db.collection('talerliste').doc(doc.id.toString()).delete()
+                      } else {
+                        db.collection('talerliste')
+                          .doc(next.toString())
+                          .delete()
+                          .then(() => {
+                            db.collection('talerliste')
+                              .doc('--config--')
+                              .update({ next: next + 1 })
+                          })
+                      }
+                    })
+                } else if (next == count) {
                   db.collection('talerliste')
                     .doc(next.toString())
                     .delete()
@@ -272,6 +310,7 @@ export default function Debatt() {
                   .doc((count + 1).toString())
                   .set({
                     active: true,
+                    skip: false,
                     navn: userData.navn,
                     nummer: userData.nummer,
                     org: userData.organisasjon,
@@ -287,6 +326,10 @@ export default function Debatt() {
         })
       setNummer('')
     }
+  }
+
+  function strykInnlegg(innleggID) {
+    db.collection('talerliste').doc(innleggID.toString()).set({ skip: true }, { merge: true })
   }
 
   const handleChange = (event) => {
@@ -333,8 +376,13 @@ export default function Debatt() {
 
             <p>TIDSBRUK:</p>
             <h1>{seconds} sekunder</h1>
-            <button className={styles.buttonSmall} onClick={toggle}> {isActive ? 'Pause' : 'Start'}</button>
-            <button className={styles.buttonSmall} onClick={reset}>Reset</button>
+            <button className={styles.buttonSmall} onClick={toggle}>
+              {' '}
+              {isActive ? 'Pause' : 'Start'}
+            </button>
+            <button className={styles.buttonSmall} onClick={reset}>
+              Reset
+            </button>
           </div>
         </div>
 
@@ -346,6 +394,7 @@ export default function Debatt() {
                   <TableCell>Skiltnummer</TableCell>
                   <TableCell>Navn</TableCell>
                   <TableCell>Organisasjon</TableCell>
+                  <TableCell></TableCell>
                 </TableRow>
               </TableHead>
 
@@ -357,6 +406,7 @@ export default function Debatt() {
                     <TableCell>{next.nummer}</TableCell>
                     <TableCell>{next.navn}</TableCell>
                     <TableCell>{next.org}</TableCell>
+                    <TableCell></TableCell>
                   </TableRow>
                 ))}
 
@@ -367,6 +417,7 @@ export default function Debatt() {
                     <TableCell>&rarr; {replikk.nummer}</TableCell>
                     <TableCell>{replikk.navn}</TableCell>
                     <TableCell>{replikk.org}</TableCell>
+                    <TableCell></TableCell>
                   </TableRow>
                 ))}
 
@@ -375,6 +426,13 @@ export default function Debatt() {
                     <TableCell>{taler.nummer}</TableCell>
                     <TableCell>{taler.navn}</TableCell>
                     <TableCell>{taler.org}</TableCell>
+                    <TableCell>
+                      <Icon
+                        className='far fa-times-circle'
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => strykInnlegg(taler.id)}
+                      />
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

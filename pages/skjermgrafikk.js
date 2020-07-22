@@ -29,9 +29,11 @@ export default function Fullskjerm() {
 
       docSnapshot.forEach((doc) => {
         if (doc.id != '--config--') {
-          const data = doc.data()
-          data.id = parseInt(doc.id)
-          talerliste.push(data)
+          if (doc.data().skip == false) {
+            const data = doc.data()
+            data.id = parseInt(doc.id)
+            talerliste.push(data)
+          }
         }
       })
       const talerlisteSort = talerliste.sort((a, b) => a.id - b.id)
