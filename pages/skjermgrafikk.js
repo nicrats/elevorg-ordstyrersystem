@@ -105,7 +105,9 @@ export default function Fullskjerm() {
     return (
       <>
         <div className={styles.main}>
-          <div className={styles.beskjedDiv}>{content}</div>
+          <div className={styles.beskjedDiv} style={{ flexWrap: 'wrap' }}>
+            {content}
+          </div>
         </div>
 
         <style jsx global>{`
