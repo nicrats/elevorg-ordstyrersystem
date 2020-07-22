@@ -50,6 +50,7 @@ export default function Fullskjerm() {
               nummer: replikkData[replikk].nummer,
               navn: replikkData[replikk].navn,
               org: replikkData[replikk].org,
+              active: replikkData[replikk].active,
             })
           }
         }
@@ -66,7 +67,7 @@ export default function Fullskjerm() {
     return (
       <div className={styles.main}>
         {nextData.map((next) => (
-          <div className={styles.talerDiv}>
+          <div className={next.active ? styles.talerDiv : styles.talelisteDiv}>
             <p style={{ fontWeight: 700 }}>{next.nummer}</p>
             <p style={{ fontWeight: 700 }}>{next.navn}</p>
             <p style={{ fontWeight: 400 }}>{next.org}</p>
@@ -75,7 +76,9 @@ export default function Fullskjerm() {
 
         {replikkData.map((replikk) => {
           return (
-            <div className={styles.talelisteDiv} key={replikk.id}>
+            <div
+              className={replikk.active ? styles.talerDiv : styles.talelisteDiv}
+              key={replikk.id}>
               <p style={{ fontWeight: 700, padding: 10, width: 150 }}>&rarr; {replikk.nummer}</p>
               <p style={{ fontWeight: 700, padding: 10 }}>{replikk.navn}</p>
               <p style={{ fontWeight: 400, padding: 10 }}>{replikk.org}</p>

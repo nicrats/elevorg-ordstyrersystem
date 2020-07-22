@@ -64,6 +64,7 @@ export default function Debatt() {
         for (var replikk in replikkData) {
           if (replikk != 'config' && replikk != 'next') {
             replikker.push({
+              active: replikkData[replikk].active,
               id: replikkData[replikk],
               nummer: replikkData[replikk].nummer,
               navn: replikkData[replikk].navn,
@@ -118,20 +119,67 @@ export default function Debatt() {
       setIsActive(true)
 
       db.collection('talerliste')
-        .doc('--config--')
+        .doc(nextData[0].id.toString())
         .get()
         .then((doc) => {
-          const next = doc.data().next
-          const count = doc.data().count
-
-          if (next <= count) {
+          if (
+            doc.data().replikk.config > 0 &&
+            doc.data().replikk.next <= doc.data().replikk.config
+          ) {
             db.collection('talerliste')
-              .doc(next.toString())
-              .delete()
-              .then(() => {
-                db.collection('talerliste')
-                  .doc('--config--')
-                  .update({ next: next + 1 })
+              .doc(nextData[0].id.toString())
+              .set({ active: false }, { merge: true })
+
+            for (
+              var replikkNummer = 1;
+              replikkNummer <= doc.data().replikk.config;
+              replikkNummer++
+            ) {
+              db.collection('talerliste')
+                .doc(nextData[0].id.toString())
+                .set(
+                  {
+                    replikk: {
+                      [replikkNummer]: {
+                        active: false,
+                      },
+                    },
+                  },
+                  { merge: true }
+                )
+            }
+
+            db.collection('talerliste')
+              .doc(nextData[0].id.toString())
+              .set(
+                {
+                  replikk: {
+                    [doc.data().replikk.next]: {
+                      active: true,
+                    },
+                    next: doc.data().replikk.next + 1,
+                  },
+                },
+                { merge: true }
+              )
+          } else {
+            db.collection('talerliste')
+              .doc('--config--')
+              .get()
+              .then((doc) => {
+                const next = doc.data().next
+                const count = doc.data().count
+
+                if (next <= count) {
+                  db.collection('talerliste')
+                    .doc(next.toString())
+                    .delete()
+                    .then(() => {
+                      db.collection('talerliste')
+                        .doc('--config--')
+                        .update({ next: next + 1 })
+                    })
+                }
               })
           }
         })
@@ -151,7 +199,9 @@ export default function Debatt() {
               {
                 replikk: {
                   config: newCount,
+                  next: 1,
                   [newCount]: {
+                    active: false,
                     navn: nextData[0].navn,
                     nummer: nextData[0].nummer,
                     org: nextData[0].org,
@@ -184,7 +234,9 @@ export default function Debatt() {
                     {
                       replikk: {
                         config: newCount,
+                        next: 1,
                         [newCount]: {
+                          active: false,
                           navn: userData.navn,
                           nummer: userData.nummer,
                           org: userData.organisasjon,
@@ -219,6 +271,7 @@ export default function Debatt() {
                 db.collection('talerliste')
                   .doc((count + 1).toString())
                   .set({
+                    active: true,
                     navn: userData.navn,
                     nummer: userData.nummer,
                     org: userData.organisasjon,
@@ -298,7 +351,9 @@ export default function Debatt() {
 
               <TableBody className={styles.tableBody}>
                 {nextData.map((next) => (
-                  <TableRow key={next.id}>
+                  <TableRow
+                    key={next.id}
+                    className={next.active ? styles.active : styles.replikkBody}>
                     <TableCell>{next.nummer}</TableCell>
                     <TableCell>{next.navn}</TableCell>
                     <TableCell>{next.org}</TableCell>
@@ -306,7 +361,9 @@ export default function Debatt() {
                 ))}
 
                 {replikkData.map((replikk) => (
-                  <TableRow key={replikk.id} className={styles.replikkBody}>
+                  <TableRow
+                    key={replikk.id}
+                    className={replikk.active ? styles.active : styles.replikkBody}>
                     <TableCell>&rarr; {replikk.nummer}</TableCell>
                     <TableCell>{replikk.navn}</TableCell>
                     <TableCell>{replikk.org}</TableCell>

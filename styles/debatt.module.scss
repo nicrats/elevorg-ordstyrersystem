@@ -6,7 +6,6 @@
     font-size: 16px;
     color: #85a2b7;
     font-style: italic;
-
   }
 }
 
@@ -42,14 +41,14 @@
     font-size: 16px;
   }
 
-  tr:first-child {
-    background-color: #ff6340;
+  // tr:first-child {
+  //   background-color: #ff6340;
 
-    td {
-      color: #f5f3ee;
-      font-weight: 500;
-    }
-  }
+  //   td {
+  //     color: #f5f3ee;
+  //     font-weight: 500;
+  //   }
+  // }
 }
 
 .replikkBody {
@@ -114,8 +113,17 @@
   }
 }
 
+.active {
+  background-color: #ff6340;
+
+  td {
+    color: #f5f3ee;
+    font-weight: 500;
+  }
+}
+
 .buttonSmall {
-  margin: 10px 5px;
+  margin: 10px 5px 10px 0px;
   padding: 10px 15px;
   outline: none;
   border: 1px solid #85a2b7;
