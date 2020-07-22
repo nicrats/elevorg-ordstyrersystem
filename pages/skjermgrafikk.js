@@ -90,7 +90,7 @@ export default function Fullskjerm() {
           )
         })}
 
-        <div className={styles.talelisteDiv}>
+        <div className={styles.talelisteDiv} style={{ flexWrap: 'wrap' }}>
           {talerlisteData.map((taler) => {
             return (
               <p key={taler.id} style={{ marginRight: 10 }}>
@@ -105,9 +105,7 @@ export default function Fullskjerm() {
     return (
       <>
         <div className={styles.main}>
-          <div className={styles.beskjedDiv} style={{ flexWrap: 'wrap' }}>
-            {content}
-          </div>
+          <div className={styles.beskjedDiv}>{content}</div>
         </div>
 
         <style jsx global>{`
