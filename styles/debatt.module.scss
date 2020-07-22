@@ -41,14 +41,14 @@
     font-size: 16px;
   }
 
-  tr:first-child {
-    background-color: #ff6340;
+  // tr:first-child {
+  //   background-color: #ff6340;
 
-    td {
-      color: #f5f3ee;
-      font-weight: 500;
-    }
-  }
+  //   td {
+  //     color: #f5f3ee;
+  //     font-weight: 500;
+  //   }
+  // }
 }
 
 .replikkBody {
@@ -110,5 +110,14 @@
     background-color: #0a466e;
     color: #f5f3ee;
     cursor: pointer;
+  }
+}
+
+.active {
+  background-color: #ff6340;
+
+  td {
+    color: #f5f3ee;
+    font-weight: 500;
   }
 }
