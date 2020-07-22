@@ -30,12 +30,12 @@ export default function Layout({ children }) {
               <h3>Styr ordet</h3>
             </div>
           </Link>
-
+          {/* 
           <Link href='/statistikk'>
             <div className={styles.card}>
               <h3>Statistikk</h3>
             </div>
-          </Link>
+          </Link> */}
 
           <Link href='/skjermgrafikk'>
             <div className={styles.card}>

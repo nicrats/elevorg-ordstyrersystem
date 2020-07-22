@@ -92,7 +92,7 @@ export default function Fullskjerm() {
           return (
             <div className={styles.talelisteDiv} key={replikk.id}>
               <p style={{ fontWeight: 700, padding: 10, width: 150 }}>&rarr; {replikk.nummer}</p>
-              <p style={{ fontWeight: 700, padding: 10, minWidth: 400 }}>{replikk.navn}</p>
+              <p style={{ fontWeight: 700, padding: 10 }}>{replikk.navn}</p>
               <p style={{ fontWeight: 400, padding: 10 }}>{replikk.org}</p>
             </div>
           )
