@@ -111,9 +111,20 @@ export default function Fullskjerm() {
     )
   } else if (mode == 'pause') {
     return (
-      <div className={styles.main}>
-        <div className={styles.beskjedDiv}>{content}</div>
-      </div>
+      <>
+        <div className={styles.main}>
+          <div className={styles.beskjedDiv}>{content}</div>
+        </div>
+
+        <style jsx global>{`
+          body {
+            background-image: url('./pausebilde.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+          }
+        `}</style>
+      </>
     )
   } else if (mode == 'hele') {
     return (
