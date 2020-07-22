@@ -115,5 +115,20 @@ export default function Fullskjerm() {
         <div className={styles.beskjedDiv}>{content}</div>
       </div>
     )
+  } else if (mode == 'hele') {
+    return (
+      <div className={styles.main}>
+        <div className={styles.talelisteDiv} style={{ flexWrap: 'wrap' }}>
+          <p style={{ marginRight: 10 }}>{nextData.nummer}</p>
+          {talerlisteData.map((taler) => {
+            return (
+              <p key={taler.id} style={{ marginRight: 10 }}>
+                {taler.nummer}
+              </p>
+            )
+          })}
+        </div>
+      </div>
+    )
   }
 }

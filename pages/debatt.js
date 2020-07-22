@@ -252,6 +252,7 @@ export default function Debatt() {
           <Select value={mode} onChange={handleChange} displayEmpty>
             <MenuItem value={'debatt'}>Modus: Debatt</MenuItem>
             <MenuItem value={'pause'}>Modus: Pause/Beskjed</MenuItem>
+            <MenuItem value={'hele'}>Modus: Referer talelista</MenuItem>
           </Select>
         </FormControl>
       </div>
