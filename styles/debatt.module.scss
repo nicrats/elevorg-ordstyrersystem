@@ -6,6 +6,7 @@
     font-size: 16px;
     color: #85a2b7;
     font-style: italic;
+
   }
 }
 
@@ -104,6 +105,24 @@
   background-color: transparent;
   color: #0a466e;
   font-size: 16px;
+  font-weight: bold;
+
+  &:hover {
+    background-color: #0a466e;
+    color: #f5f3ee;
+    cursor: pointer;
+  }
+}
+
+.buttonSmall {
+  margin: 10px 5px;
+  padding: 10px 15px;
+  outline: none;
+  border: 1px solid #85a2b7;
+
+  background-color: transparent;
+  color: #0a466e;
+  font-size: 14px;
   font-weight: bold;
 
   &:hover {
