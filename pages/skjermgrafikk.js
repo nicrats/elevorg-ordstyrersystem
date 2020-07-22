@@ -9,7 +9,7 @@ export default function Fullskjerm() {
 
   const [mode, setMode] = useState('debatt')
   const [content, setContent] = useState('')
-  const [nextData, setNextData] = useState({})
+  const [nextData, setNextData] = useState([])
   const [talerlisteData, setTalerlisteData] = useState([])
   const [replikkData, setReplikkData] = useState([])
 
@@ -25,68 +25,53 @@ export default function Fullskjerm() {
 
   useEffect(() => {
     return db.collection('talerliste').onSnapshot((docSnapshot) => {
-      db.collection('talerliste')
-        .doc('--config--')
-        .get()
-        .then((doc) => {
-          const next = doc.data().next
+      const talerliste = []
 
-          db.collection('talerliste')
-            .doc(next.toString())
-            .get()
-            .then((doc) => {
-              if (doc.exists) {
-                setNextData(doc.data())
+      docSnapshot.forEach((doc) => {
+        if (doc.id != '--config--') {
+          const data = doc.data()
+          data.id = parseInt(doc.id)
+          talerliste.push(data)
+        }
+      })
+      const talerlisteSort = talerliste.sort((a, b) => a.id - b.id)
+      const replikker = []
 
-                const replikkData = doc.data().replikk
-                const replikker = []
-                setReplikkData([])
+      if (talerlisteSort[0] != undefined) {
+        setNextData([talerlisteSort[0]])
 
-                for (var replikk in replikkData) {
-                  if (replikk != 'config' && replikk != 'next') {
-                    replikker.push({
-                      id: replikkData[replikk],
-                      nummer: replikkData[replikk].nummer,
-                      navn: replikkData[replikk].navn,
-                      org: replikkData[replikk].org,
-                    })
-                  }
-                }
-                setReplikkData(replikker)
-              } else {
-                setNextData({ nummer: 'Talerlista er tom', navn: '', org: '' })
-              }
+        const replikkData = talerlisteSort[0].replikk
+        setReplikkData([])
+
+        for (var replikk in replikkData) {
+          if (replikk != 'config' && replikk != 'next') {
+            replikker.push({
+              id: replikkData[replikk],
+              nummer: replikkData[replikk].nummer,
+              navn: replikkData[replikk].navn,
+              org: replikkData[replikk].org,
             })
-
-          db.collection('talerliste')
-            .get()
-            .then((snapshot) => {
-              const talerliste = []
-
-              snapshot.forEach((doc) => {
-                if (doc.id != '--config--') {
-                  if (doc.id != next.toString()) {
-                    const data = {}
-                    data.nummer = doc.data().nummer
-                    data.id = parseInt(doc.id)
-                    talerliste.push(data)
-                  }
-                }
-              })
-              setTalerlisteData(talerliste.sort((a, b) => a.id - b.id))
-            })
-        })
+          }
+        }
+        setReplikkData(replikker)
+      } else {
+        setNextData([{ nummer: 'Talerlista er tom' }])
+        setReplikkData([])
+      }
+      setTalerlisteData(talerlisteSort.slice(1))
     })
   }, [])
 
   if (mode == 'debatt') {
     return (
       <div className={styles.main}>
-        <div className={styles.talerDiv}>
-          <p style={{ fontWeight: 700 }}>{nextData.nummer}</p>
-          <p style={{ fontWeight: 700 }}>{nextData.navn}</p>
-          <p style={{ fontWeight: 400 }}>{nextData.org}</p>
-        </div>
+        {nextData.map((next) => (
+          <div className={styles.talerDiv}>
+            <p style={{ fontWeight: 700 }}>{next.nummer}</p>
+            <p style={{ fontWeight: 700 }}>{next.navn}</p>
+            <p style={{ fontWeight: 400 }}>{next.org}</p>
+          </div>
+        ))}
 
         {replikkData.map((replikk) => {
           return (

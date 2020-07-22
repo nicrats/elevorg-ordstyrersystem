@@ -1,8 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { View, Image, StyleSheet } from 'react';
-
-
+import { View, Image, StyleSheet } from 'react'
 
 import styles from '../styles/layout.module.scss'
 
@@ -32,12 +30,6 @@ export default function Layout({ children }) {
               <h3>Styr ordet</h3>
             </div>
           </Link>
-          {/* 
-          <Link href='/statistikk'>
-            <div className={styles.card}>
-              <h3>Statistikk</h3>
-            </div>
-          </Link> */}
 
           <Link href='/skjermgrafikk'>
             <div className={styles.card}>
