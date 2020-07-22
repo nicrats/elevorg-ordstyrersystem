@@ -24,56 +24,59 @@ export default function Fullskjerm() {
   }, [])
 
   useEffect(() => {
-    return db
-      .collection('talerliste')
-      .doc('--config--')
-      .onSnapshot((docSnapshot) => {
-        const next = docSnapshot.data().next
+    return db.collection('talerliste').onSnapshot((docSnapshot) => {
+      db.collection('talerliste')
+        .doc('--config--')
+        .get()
+        .then((doc) => {
+          const next = doc.data().next
 
-        db.collection('talerliste')
-          .doc(next.toString())
-          .get()
-          .then((doc) => {
-            if (doc.exists) {
-              setNextData(doc.data())
+          db.collection('talerliste')
+            .doc(next.toString())
+            .get()
+            .then((doc) => {
+              if (doc.exists) {
+                setNextData(doc.data())
 
-              const replikkData = doc.data().replikk
-              const replikker = []
+                const replikkData = doc.data().replikk
+                const replikker = []
+                setReplikkData([])
 
-              for (var replikk in replikkData) {
-                if (replikk != 'config' && replikk != 'next') {
-                  replikker.push({
-                    id: replikkData[replikk],
-                    nummer: replikkData[replikk].nummer,
-                    navn: replikkData[replikk].navn,
-                    org: replikkData[replikk].org,
-                  })
-                  setReplikkData(replikker)
+                for (var replikk in replikkData) {
+                  if (replikk != 'config' && replikk != 'next') {
+                    replikker.push({
+                      id: replikkData[replikk],
+                      nummer: replikkData[replikk].nummer,
+                      navn: replikkData[replikk].navn,
+                      org: replikkData[replikk].org,
+                    })
+                  }
                 }
-              }
-            } else {
-              setNextData({ nummer: 'Talerlista er tom', navn: '', org: '' })
-            }
-          })
-
-        db.collection('talerliste')
-          .get()
-          .then((snapshot) => {
-            const talerliste = []
-
-            snapshot.forEach((doc) => {
-              if (doc.id != '--config--') {
-                if (doc.id != next.toString()) {
-                  const data = {}
-                  data.nummer = doc.data().nummer
-                  data.id = parseInt(doc.id)
-                  talerliste.push(data)
-                }
+                setReplikkData(replikker)
+              } else {
+                setNextData({ nummer: 'Talerlista er tom', navn: '', org: '' })
               }
             })
-            setTalerlisteData(talerliste.sort((a, b) => a.id - b.id))
-          })
-      })
+
+          db.collection('talerliste')
+            .get()
+            .then((snapshot) => {
+              const talerliste = []
+
+              snapshot.forEach((doc) => {
+                if (doc.id != '--config--') {
+                  if (doc.id != next.toString()) {
+                    const data = {}
+                    data.nummer = doc.data().nummer
+                    data.id = parseInt(doc.id)
+                    talerliste.push(data)
+                  }
+                }
+              })
+              setTalerlisteData(talerliste.sort((a, b) => a.id - b.id))
+            })
+        })
+    })
   }, [])
 
   if (mode == 'debatt') {
