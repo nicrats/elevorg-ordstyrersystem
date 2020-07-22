@@ -7,12 +7,12 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>EO Ordstyrersystem</title>
+        <title>EO Talerlistesystem</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
       <main>
-        <h1 className={styles.title}>Ordstyrersystem</h1>
+        <h1 className={styles.title}>EO Talerlistesystem</h1>
 
         <div className={styles.grid}>
           <Link href='/deltagere'>
