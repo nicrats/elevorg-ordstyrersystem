@@ -11,6 +11,7 @@ export default function Fullskjerm() {
   const [content, setContent] = useState('')
   const [nextData, setNextData] = useState({})
   const [talerlisteData, setTalerlisteData] = useState([])
+  const [replikkData, setReplikkData] = useState([])
 
   useEffect(() => {
     return db
@@ -23,57 +24,79 @@ export default function Fullskjerm() {
   }, [])
 
   useEffect(() => {
-    return db
-      .collection('talerliste')
-      .doc('--config--')
-      .onSnapshot((docSnapshot) => {
-        const next = docSnapshot.data().next
+    return db.collection('talerliste').onSnapshot((docSnapshot) => {
+      db.collection('talerliste')
+        .doc('--config--')
+        .get()
+        .then((doc) => {
+          const next = doc.data().next
 
-        db.collection('talerliste')
-          .doc(next.toString())
-          .get()
-          .then((doc) => {
-            if (doc.exists) {
-              setNextData(doc.data())
-            } else {
-              setNextData({ nummer: 'Talerlista er tom', navn: '', org: '' })
-            }
-          })
+          db.collection('talerliste')
+            .doc(next.toString())
+            .get()
+            .then((doc) => {
+              if (doc.exists) {
+                setNextData(doc.data())
 
-        db.collection('talerliste')
-          .get()
-          .then((snapshot) => {
-            const talerliste = []
+                const replikkData = doc.data().replikk
+                const replikker = []
+                setReplikkData([])
 
-            snapshot.forEach((doc) => {
-              if (doc.id != '--config--') {
-                if (doc.id != next.toString()) {
-                  const data = {}
-                  data.nummer = doc.data().nummer
-                  data.id = parseInt(doc.id)
-                  talerliste.push(data)
+                for (var replikk in replikkData) {
+                  if (replikk != 'config' && replikk != 'next') {
+                    replikker.push({
+                      id: replikkData[replikk],
+                      nummer: replikkData[replikk].nummer,
+                      navn: replikkData[replikk].navn,
+                      org: replikkData[replikk].org,
+                    })
+                  }
                 }
+                setReplikkData(replikker)
+              } else {
+                setNextData({ nummer: 'Talerlista er tom', navn: '', org: '' })
               }
             })
-            setTalerlisteData(talerliste.sort((a, b) => a.id - b.id))
-          })
-      })
+
+          db.collection('talerliste')
+            .get()
+            .then((snapshot) => {
+              const talerliste = []
+
+              snapshot.forEach((doc) => {
+                if (doc.id != '--config--') {
+                  if (doc.id != next.toString()) {
+                    const data = {}
+                    data.nummer = doc.data().nummer
+                    data.id = parseInt(doc.id)
+                    talerliste.push(data)
+                  }
+                }
+              })
+              setTalerlisteData(talerliste.sort((a, b) => a.id - b.id))
+            })
+        })
+    })
   }, [])
 
   if (mode == 'debatt') {
     return (
       <div className={styles.main}>
-        {/* <div className={styles.talelisteDiv}>
-          <p style={{ fontWeight: 700 }}>100</p>
-          <p style={{ fontWeight: 700 }}>Daniel Martinsen</p>
-          <p style={{ fontWeight: 400 }}>Ås Videregående Skole</p>
-        </div> */}
-
         <div className={styles.talerDiv}>
           <p style={{ fontWeight: 700 }}>{nextData.nummer}</p>
           <p style={{ fontWeight: 700 }}>{nextData.navn}</p>
           <p style={{ fontWeight: 400 }}>{nextData.org}</p>
         </div>
+
+        {replikkData.map((replikk) => {
+          return (
+            <div className={styles.talelisteDiv} key={replikk.id}>
+              <p style={{ fontWeight: 700, padding: 10, width: 150 }}>&rarr; {replikk.nummer}</p>
+              <p style={{ fontWeight: 700, padding: 10 }}>{replikk.navn}</p>
+              <p style={{ fontWeight: 400, padding: 10 }}>{replikk.org}</p>
+            </div>
+          )
+        })}
 
         <div className={styles.talelisteDiv}>
           {talerlisteData.map((taler) => {
@@ -88,8 +111,34 @@ export default function Fullskjerm() {
     )
   } else if (mode == 'pause') {
     return (
+      <>
+        <div className={styles.main}>
+          <div className={styles.beskjedDiv}>{content}</div>
+        </div>
+
+        <style jsx global>{`
+          body {
+            background-image: url('./pausebilde.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+          }
+        `}</style>
+      </>
+    )
+  } else if (mode == 'hele') {
+    return (
       <div className={styles.main}>
-        <div className={styles.beskjedDiv}>{content}</div>
+        <div className={styles.talelisteDiv} style={{ flexWrap: 'wrap' }}>
+          <p style={{ marginRight: 10 }}>{nextData.nummer}</p>
+          {talerlisteData.map((taler) => {
+            return (
+              <p key={taler.id} style={{ marginRight: 10 }}>
+                {taler.nummer}
+              </p>
+            )
+          })}
+        </div>
       </div>
     )
   }
