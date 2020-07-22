@@ -27,6 +27,8 @@ export default function Debatt() {
   const [nummer, setNummer] = useState('')
   const [talerlisteData, setTalerlisteData] = useState([])
   const [ferdig, setFerdig] = useState('')
+  const [seconds, setSeconds] = useState(0)
+  const [isActive, setIsActive] = useState(false)
 
   useEffect(() => {
     db.collection('main')
@@ -61,8 +63,37 @@ export default function Debatt() {
     })
   }, [])
 
+  useEffect(() => {
+    let interval = null
+    if (isActive) {
+      interval = setInterval(() => {
+        setSeconds((seconds) => seconds + 1)
+      }, 1000)
+    } else if (!isActive && seconds !== 0) {
+      clearInterval(interval)
+    }
+    return () => clearInterval(interval)
+  }, [isActive, seconds])
+
+  function toggle() {
+    setIsActive(!isActive)
+  }
+
+  function reset() {
+    setSeconds(0)
+    setIsActive(false)
+  }
+
   function talerInput() {
     if (nummer == '') {
+      if (talerlisteData.length == 1) {
+        reset()
+        setIsActive(false)
+      } else {
+        reset()
+        setIsActive(true)
+      }
+
       db.collection('talerliste')
         .doc('--config--')
         .get()
@@ -81,7 +112,46 @@ export default function Debatt() {
               })
           }
         })
+    } else if (nummer.charAt(0) == '+') {
+      db.collection('deltagere')
+        .doc(nummer.substr(1).toString())
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            const userData = doc.data()
+
+            db.collection('talerliste')
+              .doc(talerlisteData[0].id.toString())
+              .get()
+              .then((doc) => {
+                const count = doc.data().replikk.config
+                const newCount = count + 1
+
+                db.collection('talerliste')
+                  .doc(talerlisteData[0].id.toString())
+                  .set(
+                    {
+                      replikk: {
+                        config: newCount,
+                        [newCount]: {
+                          navn: userData.navn,
+                          nummer: userData.nummer,
+                          org: userData.organisasjon,
+                        },
+                      },
+                    },
+                    { merge: true }
+                  )
+              })
+          }
+        })
+
+      setNummer('')
     } else {
+      if (talerlisteData.length == 0) {
+        setIsActive(true)
+      }
+
       db.collection('deltagere')
         .doc(nummer.toString())
         .get()
@@ -97,7 +167,12 @@ export default function Debatt() {
 
                 db.collection('talerliste')
                   .doc((count + 1).toString())
-                  .set({ navn: userData.navn, nummer: userData.nummer, org: userData.organisasjon })
+                  .set({
+                    navn: userData.navn,
+                    nummer: userData.nummer,
+                    org: userData.organisasjon,
+                    replikk: { config: 0 },
+                  })
                   .then(() => {
                     db.collection('talerliste')
                       .doc('--config--')
@@ -149,10 +224,12 @@ export default function Debatt() {
             <p>FERDIG OMTRENT:</p>
             <h1>{ferdig}</h1>
 
-            {/* <hr />
+            <hr />
 
             <p>TIDSBRUK:</p>
-            <h1>{counter} sekunder</h1> */}
+            <h1>{seconds} sekunder</h1>
+            <button onClick={toggle}> {isActive ? 'Pause' : 'Start'}</button>
+            <button onClick={reset}>Reset</button>
           </div>
         </div>
 
@@ -166,7 +243,7 @@ export default function Debatt() {
                   <TableCell>Organisasjon</TableCell>
                 </TableRow>
               </TableHead>
-              <TableBody className={tableStyles.tableBody}>
+              <TableBody className={styles.tableBody}>
                 {talerlisteData.map((taler) => (
                   <TableRow key={taler.id}>
                     <TableCell>{taler.nummer}</TableCell>

@@ -11,6 +11,7 @@ export default function Fullskjerm() {
   const [content, setContent] = useState('')
   const [nextData, setNextData] = useState({})
   const [talerlisteData, setTalerlisteData] = useState([])
+  const [replikkData, setReplikkData] = useState([])
 
   useEffect(() => {
     return db
@@ -35,6 +36,21 @@ export default function Fullskjerm() {
           .then((doc) => {
             if (doc.exists) {
               setNextData(doc.data())
+
+              const replikkData = doc.data().replikk
+              const replikker = []
+
+              for (var replikk in replikkData) {
+                if (replikk != 'config' && replikk != 'next') {
+                  replikker.push({
+                    id: replikkData[replikk],
+                    nummer: replikkData[replikk].nummer,
+                    navn: replikkData[replikk].navn,
+                    org: replikkData[replikk].org,
+                  })
+                  setReplikkData(replikker)
+                }
+              }
             } else {
               setNextData({ nummer: 'Talerlista er tom', navn: '', org: '' })
             }
@@ -63,17 +79,21 @@ export default function Fullskjerm() {
   if (mode == 'debatt') {
     return (
       <div className={styles.main}>
-        {/* <div className={styles.talelisteDiv}>
-          <p style={{ fontWeight: 700 }}>100</p>
-          <p style={{ fontWeight: 700 }}>Daniel Martinsen</p>
-          <p style={{ fontWeight: 400 }}>Ås Videregående Skole</p>
-        </div> */}
-
         <div className={styles.talerDiv}>
           <p style={{ fontWeight: 700 }}>{nextData.nummer}</p>
           <p style={{ fontWeight: 700 }}>{nextData.navn}</p>
           <p style={{ fontWeight: 400 }}>{nextData.org}</p>
         </div>
+
+        {replikkData.map((replikk) => {
+          return (
+            <div className={styles.talelisteDiv} key={replikk.id}>
+              <p style={{ fontWeight: 700, padding: 10, width: 150 }}>&rarr; {replikk.nummer}</p>
+              <p style={{ fontWeight: 700, padding: 10, minWidth: 400 }}>{replikk.navn}</p>
+              <p style={{ fontWeight: 400, padding: 10 }}>{replikk.org}</p>
+            </div>
+          )
+        })}
 
         <div className={styles.talelisteDiv}>
           {talerlisteData.map((taler) => {
