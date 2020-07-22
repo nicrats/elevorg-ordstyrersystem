@@ -333,8 +333,8 @@ export default function Debatt() {
 
             <p>TIDSBRUK:</p>
             <h1>{seconds} sekunder</h1>
-            <button onClick={toggle}> {isActive ? 'Pause' : 'Start'}</button>
-            <button onClick={reset}>Reset</button>
+            <button className={styles.buttonSmall} onClick={toggle}> {isActive ? 'Pause' : 'Start'}</button>
+            <button className={styles.buttonSmall} onClick={reset}>Reset</button>
           </div>
         </div>
 
