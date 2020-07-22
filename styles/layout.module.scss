@@ -1,18 +1,18 @@
 .menugrid {
   display: flex;
-  align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
+  align-items: center;
+  height:100px;  
 }
 
 .card {
-  margin: 0.4rem;
+  width: 180px;
   padding: 1rem 2rem;
+  background-color: #0A466E;
+  color: #FFDE66;
   text-align: center;
-  color: inherit;
   text-decoration: none;
   border: 1px solid #eaeaea;
-  border-radius: 10px;
   transition: color 0.15s ease, border-color 0.15s ease;
   cursor: pointer;
 }
@@ -20,8 +20,8 @@
 .card:hover,
 .card:focus,
 .card:active {
-  color: #0070f3;
-  border-color: #0070f3;
+  color: #E7ECF0;
+  border-color: #E7ECF0;
 }
 
 .card h3 {
