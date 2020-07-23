@@ -414,7 +414,9 @@ export default function Debatt() {
                   <TableRow
                     key={replikk.id}
                     className={replikk.active ? styles.active : styles.replikkBody}>
-                    <TableCell>&rarr; {replikk.nummer}</TableCell>
+                    <TableCell>
+                      {nextData[0].nummer == replikk.nummer ? '←' : `→`} {replikk.nummer}
+                    </TableCell>
                     <TableCell>{replikk.navn}</TableCell>
                     <TableCell>{replikk.org}</TableCell>
                     <TableCell></TableCell>

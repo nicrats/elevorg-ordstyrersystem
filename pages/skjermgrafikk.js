@@ -81,14 +81,16 @@ export default function Fullskjerm() {
             <div
               className={replikk.active ? styles.talerDiv : styles.talelisteDiv}
               key={replikk.id}>
-              <p style={{ fontWeight: 700, padding: 10, width: 150 }}>&rarr; {replikk.nummer}</p>
+              <p style={{ fontWeight: 700, padding: 10, width: 150 }}>
+                {nextData[0].nummer == replikk.nummer ? '←' : `→`} {replikk.nummer}
+              </p>
               <p style={{ fontWeight: 700, padding: 10 }}>{replikk.navn}</p>
               <p style={{ fontWeight: 400, padding: 10 }}>{replikk.org}</p>
             </div>
           )
         })}
 
-        <div className={styles.talelisteDiv}>
+        <div className={styles.talelisteDiv} style={{ flexWrap: 'wrap' }}>
           {talerlisteData.map((taler) => {
             return (
               <p key={taler.id} style={{ marginRight: 10 }}>
