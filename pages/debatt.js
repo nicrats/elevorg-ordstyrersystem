@@ -270,8 +270,6 @@ export default function Debatt() {
           const count = doc.data().replikk.config
           const newCount = count + 1
 
-          console.log(nextData[0])
-
           db.collection('talerliste')
             .doc(nextData[0].id.toString())
             .set(
@@ -478,9 +476,7 @@ export default function Debatt() {
                   <TableRow
                     key={replikk.id}
                     className={replikk.active ? styles.active : styles.replikkBody}>
-                    <TableCell>
-                      {nextData[0].nummer == replikk.nummer ? '←' : `→`} {replikk.nummer}
-                    </TableCell>
+                    <TableCell>&rarr; {replikk.nummer}</TableCell>
                     <TableCell>{replikk.navn}</TableCell>
                     <TableCell>{replikk.org}</TableCell>
                     <TableCell></TableCell>
