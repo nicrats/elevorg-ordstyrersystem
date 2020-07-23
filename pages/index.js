@@ -29,13 +29,6 @@ export default function Home() {
             </div>
           </Link>
 
-          <Link href='/statistikk'>
-            <div className={styles.card}>
-              <h3>Statistikk &rarr;</h3>
-              <p>Se dagens statistikk.</p>
-            </div>
-          </Link>
-
           <Link href='/skjermgrafikk'>
             <div className={styles.card}>
               <h3>Fullskjerm &rarr;</h3>
@@ -43,6 +36,23 @@ export default function Home() {
             </div>
           </Link>
         </div>
+        <main>
+          <h2 className={styles.description}>Eksterne kilder</h2>
+          <div className={styles.grid}>
+            <a className={styles.a} href='https://github.com/danielmartinsen/elevorg-ordstyrersystem'>
+                <div className={styles.card}>
+                  <h3>Github &rarr;</h3>
+                  <p>Se koden bak prosjektet.</p>
+                </div>
+              </a>
+              <a className={styles.a} href='https://elev.no'>
+                <div className={styles.card}>
+                  <h3>Elevorganisasjonen &rarr;</h3>
+                  <p>Les mer om organisasjonen.</p>
+                </div>
+              </a>
+            </div>
+        </main>
       </main>
     </div>
   )
