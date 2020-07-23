@@ -29,6 +29,7 @@ export default function Debatt() {
   const [nummer, setNummer] = useState('')
   const [nummer2, setNummer2] = useState('')
   const [nextData, setNextData] = useState([])
+  const [saksopplysningData, setSaksopplysningData] = useState([])
   const [replikkData, setReplikkData] = useState([])
   const [talerlisteData, setTalerlisteData] = useState([])
   const [ferdig, setFerdig] = useState('')
@@ -48,6 +49,19 @@ export default function Debatt() {
       .get()
       .then((doc) => {
         setMode(doc.data().mode)
+      })
+  }, [])
+
+  useEffect(() => {
+    return db
+      .collection('main')
+      .doc('saksopplysning')
+      .onSnapshot((docSnapshot) => {
+        if (docSnapshot.data().nummer != '') {
+          setSaksopplysningData([docSnapshot.data()])
+        } else {
+          setSaksopplysningData([])
+        }
       })
   }, [])
 
@@ -440,6 +454,15 @@ export default function Debatt() {
               </TableHead>
 
               <TableBody className={styles.tableBody}>
+                {saksopplysningData.map((taler) => (
+                  <TableRow key='saksopplysning' className={styles.saksopplysning}>
+                    <TableCell>{taler.nummer}</TableCell>
+                    <TableCell>{taler.navn}</TableCell>
+                    <TableCell>{taler.org}</TableCell>
+                    <TableCell></TableCell>
+                  </TableRow>
+                ))}
+
                 {nextData.map((next) => (
                   <TableRow
                     key={next.id}
