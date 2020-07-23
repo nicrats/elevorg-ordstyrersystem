@@ -27,6 +27,7 @@ export default function Debatt() {
   const [mode, setMode] = useState('debatt')
   const [content, setContent] = useState('')
   const [nummer, setNummer] = useState('')
+  const [nummer2, setNummer2] = useState('')
   const [nextData, setNextData] = useState([])
   const [replikkData, setReplikkData] = useState([])
   const [talerlisteData, setTalerlisteData] = useState([])
@@ -122,6 +123,32 @@ export default function Debatt() {
   function reset() {
     setSeconds(0)
     setIsActive(false)
+  }
+
+  function saksopplysningInput() {
+    if (nummer2 != '') {
+      db.collection('deltagere')
+        .doc(nummer2.toString())
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            const userData = doc.data()
+
+            db.collection('main').doc('saksopplysning').set({
+              navn: userData.navn,
+              nummer: userData.nummer,
+              org: userData.organisasjon,
+            })
+          }
+        })
+      setNummer2('')
+    } else {
+      db.collection('main').doc('saksopplysning').set({
+        navn: '',
+        nummer: '',
+        org: '',
+      })
+    }
   }
 
   function talerInput() {
@@ -347,6 +374,7 @@ export default function Debatt() {
         <FormControl>
           <Select value={mode} onChange={handleChange} displayEmpty>
             <MenuItem value={'debatt'}>Modus: Debatt</MenuItem>
+            <MenuItem value={'saksopplysning'}>Modus: Saksopplysning</MenuItem>
             <MenuItem value={'pause'}>Modus: Pause/Beskjed</MenuItem>
             <MenuItem value={'hele'}>Modus: Referer talelista</MenuItem>
           </Select>
@@ -364,6 +392,19 @@ export default function Debatt() {
             onKeyPress={(ev) => {
               if (ev.key === 'Enter') {
                 talerInput()
+              }
+            }}
+          />
+
+          <input
+            type='text'
+            className={styles.talerInput}
+            placeholder='Saksopplysning'
+            value={nummer2}
+            onChange={(e) => setNummer2(e.target.value)}
+            onKeyPress={(ev) => {
+              if (ev.key === 'Enter') {
+                saksopplysningInput()
               }
             }}
           />

@@ -10,6 +10,7 @@ export default function Fullskjerm() {
   const [mode, setMode] = useState('debatt')
   const [content, setContent] = useState('')
   const [nextData, setNextData] = useState([])
+  const [saksopplysningData, setSaksopplysningData] = useState([])
   const [talerlisteData, setTalerlisteData] = useState([])
   const [replikkData, setReplikkData] = useState([])
 
@@ -20,6 +21,19 @@ export default function Fullskjerm() {
       .onSnapshot((docSnapshot) => {
         setMode(docSnapshot.data().mode)
         setContent(docSnapshot.data().content)
+      })
+  }, [])
+
+  useEffect(() => {
+    return db
+      .collection('main')
+      .doc('saksopplysning')
+      .onSnapshot((docSnapshot) => {
+        if (docSnapshot.data().nummer != '') {
+          setSaksopplysningData([docSnapshot.data()])
+        } else {
+          setSaksopplysningData([])
+        }
       })
   }, [])
 
@@ -68,6 +82,14 @@ export default function Fullskjerm() {
   if (mode == 'debatt') {
     return (
       <div className={styles.main}>
+        {saksopplysningData.map((taler) => (
+          <div className={styles.saksopplysningDiv}>
+            <p style={{ fontWeight: 700 }}>{taler.nummer}</p>
+            <p style={{ fontWeight: 700 }}>{taler.navn}</p>
+            <p style={{ fontWeight: 400 }}>{taler.org}</p>
+          </div>
+        ))}
+
         {nextData.map((next) => (
           <div className={next.active ? styles.talerDiv : styles.talelisteDiv}>
             <p style={{ fontWeight: 700 }}>{next.nummer}</p>
@@ -131,6 +153,18 @@ export default function Fullskjerm() {
             )
           })}
         </div>
+      </div>
+    )
+  } else if (mode == 'saksopplysning') {
+    return (
+      <div className={styles.main}>
+        {saksopplysningData.map((taler) => (
+          <div className={styles.saksopplysningDiv}>
+            <p style={{ fontWeight: 700 }}>{taler.nummer}</p>
+            <p style={{ fontWeight: 700 }}>{taler.navn}</p>
+            <p style={{ fontWeight: 400 }}>{taler.org}</p>
+          </div>
+        ))}
       </div>
     )
   }

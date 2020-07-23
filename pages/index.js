@@ -18,41 +18,33 @@ export default function Home() {
           <Link href='/deltagere'>
             <div className={styles.card}>
               <h3>Deltagere &rarr;</h3>
-              <p>Legg til, fjern og endre deltagere.</p>
+              <p>Administrer deltagere.</p>
             </div>
           </Link>
 
           <Link href='/debatt'>
             <div className={styles.card}>
               <h3>Styr ordet &rarr;</h3>
-              <p>Styr ordet, og skjerm-grafikken.</p>
+              <p>Styr ordet og skjermen.</p>
             </div>
           </Link>
 
           <Link href='/skjermgrafikk'>
             <div className={styles.card}>
               <h3>Fullskjerm &rarr;</h3>
-              <p>Fullskjerms grafikk.</p>
+              <p>Fullskjerms-grafikk for OBS.</p>
             </div>
           </Link>
         </div>
-        <main>
-          <h2 className={styles.description}>Eksterne kilder</h2>
-          <div className={styles.grid}>
-            <a className={styles.a} href='https://github.com/danielmartinsen/elevorg-ordstyrersystem'>
-                <div className={styles.card}>
-                  <h3>Github &rarr;</h3>
-                  <p>Se koden bak prosjektet.</p>
-                </div>
-              </a>
-              <a className={styles.a} href='https://elev.no'>
-                <div className={styles.card}>
-                  <h3>Elevorganisasjonen &rarr;</h3>
-                  <p>Les mer om organisasjonen.</p>
-                </div>
-              </a>
-            </div>
-        </main>
+
+        <div className={styles.footer}>
+          <a className={styles.a} href='https://github.com/danielmartinsen/elevorg-ordstyrersystem'>
+            Se koden bak prosjektet &rarr;
+          </a>
+          <a className={styles.a} href='https://elev.no'>
+            Les mer om Elevorganisasjonen &rarr;
+          </a>
+        </div>
       </main>
     </div>
   )
