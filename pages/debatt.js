@@ -28,6 +28,7 @@ export default function Debatt() {
   const [content, setContent] = useState('')
   const [nummer, setNummer] = useState('')
   const [nummer2, setNummer2] = useState('')
+  const [sakstittel, setSakstittel] = useState('')
   const [nextData, setNextData] = useState([])
   const [saksopplysningData, setSaksopplysningData] = useState([])
   const [replikkData, setReplikkData] = useState([])
@@ -49,6 +50,7 @@ export default function Debatt() {
       .get()
       .then((doc) => {
         setMode(doc.data().mode)
+        setSakstittel(doc.data().sakstittel)
       })
   }, [])
 
@@ -162,6 +164,24 @@ export default function Debatt() {
         nummer: '',
         org: '',
       })
+    }
+  }
+
+  function sakstittelInput() {
+    if (sakstittel != '') {
+      db.collection('main').doc('config').set(
+        {
+          sakstittel: sakstittel,
+        },
+        { merge: true }
+      )
+    } else {
+      db.collection('main').doc('config').set(
+        {
+          sakstittel: '',
+        },
+        { merge: true }
+      )
     }
   }
 
@@ -417,6 +437,19 @@ export default function Debatt() {
             onKeyPress={(ev) => {
               if (ev.key === 'Enter') {
                 saksopplysningInput()
+              }
+            }}
+          />
+
+          <input
+            type='text'
+            className={styles.talerInput}
+            placeholder='Sakstittel'
+            value={sakstittel}
+            onChange={(e) => setSakstittel(e.target.value)}
+            onKeyPress={(ev) => {
+              if (ev.key === 'Enter') {
+                sakstittelInput()
               }
             }}
           />

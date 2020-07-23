@@ -9,6 +9,7 @@ export default function Fullskjerm() {
 
   const [mode, setMode] = useState('debatt')
   const [content, setContent] = useState('')
+  const [sakstittel, setSakstittel] = useState('')
   const [nextData, setNextData] = useState([])
   const [saksopplysningData, setSaksopplysningData] = useState([])
   const [talerlisteData, setTalerlisteData] = useState([])
@@ -21,6 +22,7 @@ export default function Fullskjerm() {
       .onSnapshot((docSnapshot) => {
         setMode(docSnapshot.data().mode)
         setContent(docSnapshot.data().content)
+        setSakstittel(docSnapshot.data().sakstittel)
       })
   }, [])
 
@@ -81,47 +83,53 @@ export default function Fullskjerm() {
 
   if (mode == 'debatt') {
     return (
-      <div className={styles.main}>
-        {saksopplysningData.map((taler) => (
-          <div className={styles.saksopplysningDiv}>
-            <p style={{ fontWeight: 700 }}>{taler.nummer}</p>
-            <p style={{ fontWeight: 700 }}>{taler.navn}</p>
-            <p style={{ fontWeight: 400 }}>{taler.org}</p>
-          </div>
-        ))}
+      <>
+        <div className={styles.sakstittel}>
+          <p>{sakstittel}</p>
+        </div>
 
-        {nextData.map((next) => (
-          <div className={next.active ? styles.talerDiv : styles.talelisteDiv}>
-            <p style={{ fontWeight: 700 }}>{next.nummer}</p>
-            <p style={{ fontWeight: 700 }}>{next.navn}</p>
-            <p style={{ fontWeight: 400 }}>{next.org}</p>
-          </div>
-        ))}
-
-        {replikkData.map((replikk) => {
-          return (
-            <div
-              className={replikk.active ? styles.talerDiv : styles.talelisteDiv}
-              key={replikk.id}>
-              <p style={{ fontWeight: 700, padding: 10, width: 150 }}>
-                {nextData[0].nummer == replikk.nummer ? '←' : `→`} {replikk.nummer}
-              </p>
-              <p style={{ fontWeight: 700, padding: 10 }}>{replikk.navn}</p>
-              <p style={{ fontWeight: 400, padding: 10 }}>{replikk.org}</p>
+        <div className={styles.main}>
+          {saksopplysningData.map((taler) => (
+            <div className={styles.saksopplysningDiv}>
+              <p style={{ fontWeight: 700 }}>{taler.nummer}</p>
+              <p style={{ fontWeight: 700 }}>{taler.navn}</p>
+              <p style={{ fontWeight: 400 }}>{taler.org}</p>
             </div>
-          )
-        })}
+          ))}
 
-        <div className={styles.talelisteDiv} style={{ flexWrap: 'wrap' }}>
-          {talerlisteData.map((taler) => {
+          {nextData.map((next) => (
+            <div className={next.active ? styles.talerDiv : styles.talelisteDiv}>
+              <p style={{ fontWeight: 700 }}>{next.nummer}</p>
+              <p style={{ fontWeight: 700 }}>{next.navn}</p>
+              <p style={{ fontWeight: 400 }}>{next.org}</p>
+            </div>
+          ))}
+
+          {replikkData.map((replikk) => {
             return (
-              <p key={taler.id} style={{ marginRight: 10 }}>
-                {taler.nummer}
-              </p>
+              <div
+                className={replikk.active ? styles.talerDiv : styles.talelisteDiv}
+                key={replikk.id}>
+                <p style={{ fontWeight: 700, padding: 10, width: 100 }}>
+                  {nextData[0].nummer == replikk.nummer ? '←' : `→`} {replikk.nummer}
+                </p>
+                <p style={{ fontWeight: 700, padding: 10 }}>{replikk.navn}</p>
+                <p style={{ fontWeight: 400, padding: 10 }}>{replikk.org}</p>
+              </div>
             )
           })}
+
+          <div className={styles.talelisteDiv} style={{ flexWrap: 'wrap' }}>
+            {talerlisteData.map((taler) => {
+              return (
+                <p key={taler.id} style={{ marginRight: 10 }}>
+                  {taler.nummer}
+                </p>
+              )
+            })}
+          </div>
         </div>
-      </div>
+      </>
     )
   } else if (mode == 'pause') {
     return (
