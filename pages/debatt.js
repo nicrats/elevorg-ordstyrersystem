@@ -248,16 +248,26 @@ export default function Debatt() {
                     .get()
                     .then((doc) => {
                       if (doc.data().skip) {
-                        db.collection('talerliste')
-                          .doc(next.toString())
-                          .delete()
-                          .then(() => {
-                            db.collection('talerliste')
-                              .doc('--config--')
-                              .update({ next: next + 2 })
-                          })
+                        const increment = firebase.firestore.FieldValue.increment(1)
 
-                        db.collection('talerliste').doc(doc.id.toString()).delete()
+                        db.collection('talerliste').doc(next.toString()).delete()
+                        db.collection('talerliste').doc('--config--').update({ next: increment })
+
+                        for (var i = next + 1; i <= count; i++) {
+                          db.collection('talerliste')
+                            .doc(i.toString())
+                            .get()
+                            .then((doc) => {
+                              if (doc.data().skip) {
+                                db.collection('talerliste').doc(doc.id.toString()).delete()
+                                db.collection('talerliste')
+                                  .doc('--config--')
+                                  .update({ next: increment })
+                              } else {
+                                return
+                              }
+                            })
+                        }
                       } else {
                         db.collection('talerliste')
                           .doc(next.toString())
