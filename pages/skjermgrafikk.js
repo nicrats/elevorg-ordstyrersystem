@@ -110,7 +110,7 @@ export default function Fullskjerm() {
               <div
                 className={replikk.active ? styles.talerDiv : styles.talelisteDiv}
                 key={replikk.id}>
-                <p style={{ fontWeight: 700, padding: 10, width: 100 }}>
+                <p style={{ fontWeight: 700, padding: 10 }}>
                   {nextData[0].nummer == replikk.nummer ? '←' : `→`} {replikk.nummer}
                 </p>
                 <p style={{ fontWeight: 700, padding: 10 }}>{replikk.navn}</p>
