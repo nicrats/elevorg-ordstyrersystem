@@ -8,4 +8,4 @@ Det er desverre ikke noe dokumentasjon, heller kommer det ikke til å bli skreve
 Litt FYI,
 Systemet er kun laget for å bli brukt av et arrangement om gangen. Hele databasen er basert på det, så plz ikke bruk det hvis du ser noen andre bruker det, det er litt douche move. Systemet skal heller ikke bli brukt av noen andre enn EO (elevorganisasjonen) fordi systemet takler ikke det. Ellers bruk av systemet, for å tukle med det eller whatnot er opp til hver enkelt person, men ta litt hensyn. Kos dere!
 
-Viken og Oslo + lokallagene er deres har førsterett på systemet, hvis det blir en konflikt så kommer de først. Oslo Vest er det beste lokallaget, Oslo er ikke en by i viken, ellers ha en fin dag!
+Viken og Oslo + lokallagene er deres har førsterett på systemet, hvis det blir en konflikt så kommer de først. Oslo Vest er det beste lokallaget, Oslo er så absolutt en by i Viken, ellers ha en fin dag!
