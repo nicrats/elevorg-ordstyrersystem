@@ -132,7 +132,7 @@ export default function Fullskjerm() {
 
         <style jsx global>{`
           body {
-            background-color: white');
+            background-color: white;
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-size: cover;
