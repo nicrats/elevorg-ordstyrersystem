@@ -129,6 +129,15 @@ export default function Fullskjerm() {
             })}
           </div>
         </div>
+
+        <style jsx global>{`
+          body {
+            background-color: white');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+          }
+        `}</style>
       </>
     )
   } else if (mode == 'pause') {
