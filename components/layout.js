@@ -11,9 +11,21 @@ export default function Layout({ user, loading = false, children }) {
       </Head>
 
       {!user && (
-        <Link href='/api/login'>
-          <button>Logg inn</button>
-        </Link>
+        <main>
+          <div className={styles.menugrid}>
+            <Link href='/'>
+              <div className={styles.card}>
+                <h3>Hjem</h3>
+              </div>
+            </Link>
+
+            <Link href='/api/login'>
+              <div className={styles.card}>
+                <h3>Logg inn</h3>
+              </div>
+            </Link>
+          </div>
+        </main>
       )}
 
       {user && (
