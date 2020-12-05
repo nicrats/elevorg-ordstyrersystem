@@ -482,12 +482,12 @@ export default function Debatt() {
 
             <hr />
 
-            <p>FORKLARING:</p>
+            <p style={{marginBottom: 20}}>FORKLARING:</p>
               <p>
-                <b>Innlegg</b>: [skiltnummer] <br />
-                <b>Replikk</b>: +[skiltnummer] <br />
+                <b>Innlegg</b>: [nummer] <br />
+                <b>Replikk</b>: +[nummer] <br />
                 <b>Svarreplikk</b>: ++ <br />
-                <b>Saksopplysning</b>: [skiltnummer] i feltet
+                <b>Saksopplysning</b>: [nummer] i feltet
               </p>
           </div>
         </div>
@@ -566,15 +566,6 @@ export default function Debatt() {
             Lagre og vis
           </button>
         </div>
-      </div>
-
-      <div style={{width: "100%"}}>
-        <p>
-          <b>Innlegg</b>: [skiltnummer] <br />
-          <b>Replikk</b>: +[skiltnummer] <br />
-          <b>Svarreplikk</b>: ++ <br />
-          <b>Saksopplysning</b>: [skiltnummer] i feltet
-        </p>
       </div>
     </Layout>
   )
