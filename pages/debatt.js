@@ -3,6 +3,7 @@ import Layout from '../components/layout'
 import { loadFirebase } from '../lib/firebase'
 import { loadCSS } from 'fg-loadcss'
 import * as moment from 'moment'
+import { useFetchUser } from '../lib/user'
 
 import Icon from '@material-ui/core/Icon'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -23,6 +24,7 @@ import tableStyles from '../styles/table.module.scss'
 export default function Debatt() {
   const firebase = loadFirebase()
   const db = firebase.firestore()
+  const { user, loading } = useFetchUser({ required: true })
 
   const [mode, setMode] = useState('debatt')
   const [content, setContent] = useState('')
@@ -411,7 +413,7 @@ export default function Debatt() {
   }
 
   return (
-    <Layout>
+    <Layout user={user} loading={loading}>
       <div className={styles.modeSelect}>
         <FormControl>
           <Select value={mode} onChange={handleChange} displayEmpty>

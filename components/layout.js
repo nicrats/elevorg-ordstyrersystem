@@ -1,47 +1,60 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { View, Image, StyleSheet } from 'react'
-
 import styles from '../styles/layout.module.scss'
 
-export default function Layout({ children }) {
+export default function Layout({ user, loading = false, children }) {
   return (
     <div className={styles.container}>
       <Head>
         <title>EO Ordstyrersystem</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <main>
-        <div className={styles.menugrid}>
-          <Link href='/'>
-            <div className={styles.card}>
-              <h3>Hjem</h3>
-            </div>
-          </Link>
 
-          <Link href='/deltagere'>
-            <div className={styles.card}>
-              <h3>Deltagere</h3>
-            </div>
-          </Link>
+      {!user && (
+        <Link href='/api/login'>
+          <button>Logg inn</button>
+        </Link>
+      )}
 
-          <Link href='/debatt'>
-            <div className={styles.card}>
-              <h3>Styr ordet</h3>
-            </div>
-          </Link>
+      {user && (
+        <main>
+          <div className={styles.menugrid}>
+            <Link href='/'>
+              <div className={styles.card}>
+                <h3>Hjem</h3>
+              </div>
+            </Link>
 
-          <Link href='/skjermgrafikk'>
-            <div className={styles.card}>
-              <h3>Fullskjerm</h3>
-            </div>
-          </Link>
-        </div>
+            <Link href='/deltagere'>
+              <div className={styles.card}>
+                <h3>Deltagere</h3>
+              </div>
+            </Link>
 
-        <div style={{ marginTop: '3rem' }}></div>
+            <Link href='/debatt'>
+              <div className={styles.card}>
+                <h3>Styr ordet</h3>
+              </div>
+            </Link>
 
-        {children}
-      </main>
+            <Link href='/skjermgrafikk'>
+              <div className={styles.card}>
+                <h3>Fullskjerm</h3>
+              </div>
+            </Link>
+
+            <Link href='/api/logout'>
+              <div className={styles.card}>
+                <h3>Logg ut</h3>
+              </div>
+            </Link>
+          </div>
+
+          <div style={{ marginTop: '3rem' }}></div>
+
+          {children}
+        </main>
+      )}
     </div>
   )
 }

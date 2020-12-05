@@ -1,6 +1,14 @@
 {
   "build": {
     "env": {
+      "AUTH0_DOMAIN": "martinsendev.eu.auth0.com",
+      "AUTH0_CLIENT_ID": "ZTsH4HLFrEqmatjYRhzKsb7A61DUex2T",
+      "AUTH0_CLIENT_SECRET": "@auth0_client_secret_eo_talerliste",
+      "REDIRECT_URI": "https://talerliste.now.sh/api/callback",
+      "POST_LOGOUT_REDIRECT_URI": "https://talerliste.now.sh/",
+      "SESSION_COOKIE_SECRET": "@session_cookie_secret_eo_talerliste",
+      "SESSION_COOKIE_LIFETIME": "7200",
+
       "FIREBASE_API_KEY": "@firebase_api_key_talerliste",
       "FIREBASE_AUTH_DOMAIN": "elevorg-talerliste.firebaseapp.com",
       "FIREBASE_DATABASE_URL": "https://elevorg-talerliste.firebaseio.com",

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { loadFirebase } from '../lib/firebase'
 
 import Import from '../components/import'
+import { useFetchUser } from '../lib/user'
 
 import styles from '../styles/deltagere.module.scss'
 import modalStyles from '../styles/modal.module.scss'
@@ -25,6 +26,7 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 export default function Deltagere() {
   const firebase = loadFirebase()
   const db = firebase.firestore()
+  const { user, loading } = useFetchUser({ required: true })
 
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
@@ -116,7 +118,7 @@ export default function Deltagere() {
   }
 
   return (
-    <Layout>
+    <Layout user={user} loading={loading}>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle id='alert-dialog-title'>
           <h2 className={modalStyles.modalTitle}>Legg til en ny deltager</h2>
