@@ -558,7 +558,7 @@ export default function Debatt() {
         </div>
       </div>
 
-      <div style="width: 100%">
+      <div style={{width: "100%"}}>
         <p>Innlegg: [skiltnummer]</p>
         <p>Replikk: +[skiltnummer]</p>
         <p>Svarreplikk: ++</p>
