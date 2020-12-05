@@ -562,7 +562,8 @@ export default function Debatt() {
         <p>
           <b>Innlegg</b>: [skiltnummer] <br />
           <b>Replikk</b>: +[skiltnummer] <br />
-          <b>Svarreplikk</b>: ++
+          <b>Svarreplikk</b>: ++ <br />
+          <b>Saksopplysning</b>: [skiltnummer] i feltet
         </p>
       </div>
     </Layout>
