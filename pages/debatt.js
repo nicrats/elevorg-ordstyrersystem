@@ -479,6 +479,16 @@ export default function Debatt() {
             <button className={styles.buttonSmall} onClick={reset}>
               Reset
             </button>
+
+            <hr />
+
+            <p>FORKLARING:</p>
+              <p>
+                <b>Innlegg</b>: [skiltnummer] <br />
+                <b>Replikk</b>: +[skiltnummer] <br />
+                <b>Svarreplikk</b>: ++ <br />
+                <b>Saksopplysning</b>: [skiltnummer] i feltet
+              </p>
           </div>
         </div>
 
