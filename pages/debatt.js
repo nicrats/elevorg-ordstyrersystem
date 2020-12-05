@@ -557,6 +557,12 @@ export default function Debatt() {
           </button>
         </div>
       </div>
+
+      <div>
+        <p>Innlegg: [skiltnummer]</p>
+        <p>Replikk: +[skiltnummer]</p>
+        <p>Svarreplikk: ++</p>
+      </div>
     </Layout>
   )
 }
