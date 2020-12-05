@@ -559,9 +559,11 @@ export default function Debatt() {
       </div>
 
       <div style={{width: "100%"}}>
-        <p>Innlegg: [skiltnummer]</p>
-        <p>Replikk: +[skiltnummer]</p>
-        <p>Svarreplikk: ++</p>
+        <p>
+          <b>Innlegg</b>: [skiltnummer] <br />
+          <b>Replikk</b>: +[skiltnummer] <br />
+          <b>Svarreplikk</b>: ++
+        </p>
       </div>
     </Layout>
   )
