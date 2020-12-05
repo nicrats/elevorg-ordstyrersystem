@@ -482,7 +482,7 @@ export default function Debatt() {
 
             <hr />
 
-            <p style={{marginBottom: 20}}>FORKLARING:</p>
+            <p style={{marginBottom: 10}}>FORKLARING:</p>
               <p>
                 <b>Innlegg</b>: [nummer] <br />
                 <b>Replikk</b>: +[nummer] <br />
