@@ -35,10 +35,13 @@ export default function Home() {
               <p>Fullskjerms-grafikk for OBS.</p>
             </div>
           </Link>
-        </div>
 
-        <div>
-          <p>Kontakt <a href="mailto:daniel.martinsen@elev.no">Daniel Martinsen</a> (EO Viken) for innloggings-detaljer.</p>
+          <Link href='/api/login'>
+            <div className={styles.card}>
+              <h3>Logg inn &rarr;</h3>
+              <p>Kontakt Daniel Martinsen for innlogging.</p>
+            </div>
+          </Link>
         </div>
 
         <div className={styles.footer}>
