@@ -37,6 +37,10 @@ export default function Home() {
           </Link>
         </div>
 
+        <div>
+          <p>Kontakt <a href="mailto:daniel.martinsen@elev.no">Daniel Martinsen</a> (EO Viken) for innloggings-detaljer.</p>
+        </div>
+
         <div className={styles.footer}>
           <a className={styles.a} href='https://github.com/danielmartinsen/elevorg-ordstyrersystem'>
             Se koden bak prosjektet &rarr;
