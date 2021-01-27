@@ -49,6 +49,12 @@ export default function Layout({ user, loading = false, children }) {
               </div>
             </Link>
 
+            <Link href='/dagsorden'>
+              <div className={styles.card}>
+                <h3>Dagsorden</h3>
+              </div>
+            </Link>
+
             <Link href='/skjermgrafikk'>
               <div className={styles.card}>
                 <h3>Fullskjerm</h3>

@@ -29,6 +29,13 @@ export default function Home() {
             </div>
           </Link>
 
+          <Link href='/dagsorden'>
+            <div className={styles.card}>
+              <h3>Dagsorden &rarr;</h3>
+              <p>Sett opp dagsorden med dokumenter og forslag.</p>
+            </div>
+          </Link>
+
           <Link href='/skjermgrafikk'>
             <div className={styles.card}>
               <h3>Fullskjerm &rarr;</h3>
