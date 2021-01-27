@@ -36,6 +36,13 @@ export default function Home() {
             </div>
           </Link>
 
+          <Link href='/votering'>
+            <div className={styles.card}>
+              <h3>Voteringer &rarr;</h3>
+              <p>Styr voteringer, og åpne for stemmegivning</p>
+            </div>
+          </Link>
+
           <Link href='/skjermgrafikk'>
             <div className={styles.card}>
               <h3>Fullskjerm &rarr;</h3>
