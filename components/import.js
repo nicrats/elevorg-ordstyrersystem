@@ -32,6 +32,7 @@ export default class Import extends Component {
           nummer: entryData[1],
           organisasjon: entryData[2],
           rolle: entryData[3],
+          epost: entryData[4]
         })
         .then(() => {})
     })

@@ -55,6 +55,7 @@ export default function Deltagere() {
   const [nummer, setNummer] = useState('')
   const [org, setOrg] = useState('')
   const [rolle, setRolle] = useState('')
+  const [epost, setEpost] = useState('')
 
   useEffect(() => {
     loadDeltagere()
@@ -81,7 +82,7 @@ export default function Deltagere() {
   function addDeltager() {
     db.collection('deltagere')
       .doc(nummer.toString())
-      .set({ navn: navn, nummer: nummer, organisasjon: org, rolle: rolle })
+      .set({ navn: navn, nummer: nummer, organisasjon: org, rolle: rolle, epost: epost })
       .then(() => {
         loadDeltagere()
         clearForm()
@@ -92,7 +93,7 @@ export default function Deltagere() {
   function editDeltager() {
     db.collection('deltagere')
       .doc(nummer.toString())
-      .update({ navn: navn, nummer: nummer, organisasjon: org, rolle: rolle })
+      .update({ navn: navn, nummer: nummer, organisasjon: org, rolle: rolle, epost: epost })
       .then(() => {
         loadDeltagere()
         clearForm()
@@ -157,6 +158,13 @@ export default function Deltagere() {
               onChange={(e) => setRolle(e.target.value)}
               autoComplete='off'
             />
+            <input
+              type='text'
+              className={modalStyles.addInput}
+              placeholder='E-post'
+              onChange={(e) => setEpost(e.target.value)}
+              autoComplete='off'
+            />
 
             <input
               type='button'
@@ -180,7 +188,7 @@ export default function Deltagere() {
           <h2 className={modalStyles.modalTitle}>Importer deltagere</h2>
           <p>
             Import deltagere fra en .csv fil her. Filen må være kommaskilt og i rekkefølgen Navn,
-            Skiltnummer, Organisasjon, Rolle og uten header.
+            Skiltnummer, Organisasjon, Rolle, E-post og uten header.
           </p>
         </DialogTitle>
         <DialogContent>
@@ -234,6 +242,14 @@ export default function Deltagere() {
               value={rolle}
               autoComplete='off'
             />
+            <input
+              type='text'
+              className={modalStyles.addInput}
+              placeholder='E-post'
+              onChange={(e) => setEpost(e.target.value)}
+              value={epost}
+              autoComplete='off'
+            />
 
             <input
               type='button'
@@ -265,6 +281,7 @@ export default function Deltagere() {
               <TableCell>Navn</TableCell>
               <TableCell>Organisasjon</TableCell>
               <TableCell>Rolle</TableCell>
+              <TableCell>E-post</TableCell>
               <TableCell />
             </TableRow>
           </TableHead>
@@ -275,6 +292,7 @@ export default function Deltagere() {
                 <TableCell>{row.navn}</TableCell>
                 <TableCell>{row.organisasjon}</TableCell>
                 <TableCell>{row.rolle}</TableCell>
+                <TableCell>{row.epost}</TableCell>
                 <TableCell>
                   <button className={tableStyles.button} onClick={() => handleOpenEdit(row)}>
                     Endre
