@@ -412,6 +412,17 @@ export default function Debatt() {
     db.collection('main').doc('config').update({ content: content })
   }
 
+  async function removeAll() {
+    db.collection('talerliste').doc('--config--').update({ count: 0, next: 1 })
+
+    const snapshot = await db.collection('talerliste').get()
+    snapshot.forEach(doc => {
+      if (doc.id != '--config--') {
+        db.collection('talerliste').doc(doc.id).delete()
+      }
+    })
+  }
+
   return (
     <Layout user={user} loading={loading}>
       <div className={styles.modeSelect}>
@@ -423,6 +434,8 @@ export default function Debatt() {
             <MenuItem value={'hele'}>Modus: Referer talelista</MenuItem>
           </Select>
         </FormControl>
+
+        <button className={styles.buttonSmall} style={{marginLeft:'auto'}} onClick={() => removeAll()}>Fjern alle</button>
       </div>
 
       <div className={styles.content}>
