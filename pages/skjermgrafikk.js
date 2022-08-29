@@ -149,7 +149,7 @@ export default function Fullskjerm() {
 
         <style jsx global>{`
           body {
-            background-image: url('./pausebilde2.png');
+            background-image: url('./pausebilde3.jpg');
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-size: cover;
