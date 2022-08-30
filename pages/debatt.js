@@ -572,7 +572,7 @@ export default function Debatt() {
                     <TableCell>
                       <Icon
                         className='far fa-times-circle'
-                        style={{ cursor: 'pointer' }}
+                        style={{ cursor: 'pointer', fontSize: 16 }}
                         onClick={() => strykInnlegg(taler.id)}
                       />
                     </TableCell>

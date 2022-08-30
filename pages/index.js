@@ -40,8 +40,8 @@ export default function Home() {
             <div className={styles.card}>
               <h3>Voteringer &rarr;</h3>
               <p>Styr voteringer, og åpne for stemmegivning</p>
-            </div> */}
-          </Link>
+            </div>
+          </Link> */}
 
           <Link href='/skjermgrafikk'>
             <div className={styles.card}>
