@@ -1,9 +1,9 @@
 .tableHeader {
-  background-color: #0a466e;
+  background-color: #292929;
 
   th {
     font-weight: bold;
-    color: #ffde66;
+    color: #ffffff;
   }
 }
 
@@ -11,16 +11,16 @@
   span {
     font-size: 22px;
     margin: 0px 8px;
-    color: #0a466e;
+    color: #292929;
 
     &:hover {
-      color: #0a466e;
+      color: #292929;
       cursor: pointer;
     }
   }
 
   a {
-    color: #0a466e;
+    color: #292929;
   }
 }
 
@@ -28,16 +28,16 @@
   margin-right: 15px;
   padding: 5px 10px;
   outline: none;
-  border: 1px solid #0a466e;
+  border: 1px solid #292929;
   border-radius: 4px;
 
   background-color: transparent;
-  color: #0a466e;
+  color: #292929;
   font-size: 14px;
 
   &:hover {
-    background-color: #0a466e;
-    color: #73ffd7;
+    background-color: #292929;
+    color: #ffffff;
     cursor: pointer;
   }
 }

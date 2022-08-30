@@ -117,7 +117,9 @@ export default function Debatt() {
       const nowTime = new Date()
       const ferdigTime = moment(nowTime).add(minutes, 'm').toDate()
       setFerdig(
-        ('0' + ferdigTime.getHours()).slice(-2) + ':' + ('0' + ferdigTime.getMinutes()).slice(-2)
+        ('0' + ferdigTime.getHours()).slice(-2) +
+          ':' +
+          ('0' + ferdigTime.getMinutes()).slice(-2)
       )
     })
   }, [])
@@ -253,7 +255,9 @@ export default function Debatt() {
                         const increment = firebase.firestore.FieldValue.increment(1)
 
                         db.collection('talerliste').doc(next.toString()).delete()
-                        db.collection('talerliste').doc('--config--').update({ next: increment })
+                        db.collection('talerliste')
+                          .doc('--config--')
+                          .update({ next: increment })
 
                         for (var i = next + 1; i <= count; i++) {
                           db.collection('talerliste')
@@ -261,7 +265,9 @@ export default function Debatt() {
                             .get()
                             .then((doc) => {
                               if (doc.data().skip) {
-                                db.collection('talerliste').doc(doc.id.toString()).delete()
+                                db.collection('talerliste')
+                                  .doc(doc.id.toString())
+                                  .delete()
                                 db.collection('talerliste')
                                   .doc('--config--')
                                   .update({ next: increment })
@@ -400,7 +406,9 @@ export default function Debatt() {
   }
 
   function strykInnlegg(innleggID) {
-    db.collection('talerliste').doc(innleggID.toString()).set({ skip: true }, { merge: true })
+    db.collection('talerliste')
+      .doc(innleggID.toString())
+      .set({ skip: true }, { merge: true })
   }
 
   const handleChange = (event) => {
@@ -416,7 +424,7 @@ export default function Debatt() {
     db.collection('talerliste').doc('--config--').update({ count: 0, next: 1 })
 
     const snapshot = await db.collection('talerliste').get()
-    snapshot.forEach(doc => {
+    snapshot.forEach((doc) => {
       if (doc.id != '--config--') {
         db.collection('talerliste').doc(doc.id).delete()
       }
@@ -435,7 +443,12 @@ export default function Debatt() {
           </Select>
         </FormControl>
 
-        <button className={styles.buttonSmall} style={{marginLeft:'auto'}} onClick={() => removeAll()}>Fjern alle</button>
+        <button
+          className={styles.buttonSmall}
+          style={{ marginLeft: 'auto' }}
+          onClick={() => removeAll()}>
+          Fjern alle
+        </button>
       </div>
 
       <div className={styles.content}>
@@ -481,12 +494,12 @@ export default function Debatt() {
 
           <div className={styles.timeDiv}>
             <p>FERDIG OMTRENT:</p>
-            <h1>{ferdig}</h1>
+            <h2>{ferdig}</h2>
 
             <hr />
 
             <p>TIDSBRUK:</p>
-            <h1>{seconds} sekunder</h1>
+            <h2>{seconds} sekunder</h2>
             <button className={styles.buttonSmall} onClick={toggle}>
               {' '}
               {isActive ? 'Pause' : 'Start'}
@@ -497,13 +510,13 @@ export default function Debatt() {
 
             <hr />
 
-            <p style={{marginBottom: 10}}>FORKLARING:</p>
-              <p>
-                <b>Innlegg</b>: [nummer] <br />
-                <b>Replikk</b>: +[nummer] <br />
-                <b>Svarreplikk</b>: ++ <br />
-                <b>Saksopplysning</b>: [nummer]
-              </p>
+            <p style={{ marginBottom: 10 }}>FORKLARING:</p>
+            <p>
+              <b>Innlegg</b>: [nummer] <br />
+              <b>Replikk</b>: +[nummer] <br />
+              <b>Svarreplikk</b>: ++ <br />
+              <b>Saksopplysning</b>: [nummer]
+            </p>
           </div>
         </div>
 
@@ -577,7 +590,7 @@ export default function Debatt() {
             className={styles.beskjedArea}
             placeholder='Beskjed...'
             onChange={(e) => setContent(e.target.value)}></textarea>
-          <button className={styles.button} onClick={() => updateContent()}>
+          <button className={styles.buttonSmall} onClick={() => updateContent()}>
             Lagre og vis
           </button>
         </div>
