@@ -13,6 +13,7 @@
   width: 100%;
   margin-bottom: 6px;
   border: 2px solid #c5c5c5;
+  border-radius: 8px;
   padding: 6px 12px;
   outline: none;
   color: #292929;
@@ -39,6 +40,7 @@
   td,
   th {
     font-size: 16px;
+    padding: 12px 16px;
   }
 }
 
@@ -105,7 +107,7 @@
 
   td {
     color: #f5f3ee;
-    font-weight: 500;
+    padding: 12px 16px;
   }
 }
 
@@ -114,7 +116,7 @@
 
   td {
     color: #ffffff;
-    font-weight: 500;
+    padding: 12px 16px;
   }
 }
 

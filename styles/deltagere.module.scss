@@ -4,20 +4,20 @@
   align-items: flex-start;
 
   button {
-    margin-right: 5px;
-    padding: 10px;
+    margin: 10px 5px 10px 0px;
+    padding: 10px 15px;
     outline: none;
-    border: 1px solid #0a466e;
-    border-radius: 4px;
+    border: 1px solid #292929;
+    border-radius: 8px;
 
     background-color: transparent;
-    color: #0a466e;
-    font-size: 15px;
+    color: #292929;
+    font-size: 14px;
 
     &:hover {
+      background-color: #292929;
+      color: #f5f3ee;
       cursor: pointer;
-      background-color: #0a466e;
-      color: #73ffd7;
     }
   }
 }

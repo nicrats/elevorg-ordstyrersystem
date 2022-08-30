@@ -29,7 +29,7 @@ export default function Home() {
             </div>
           </Link>
 
-          <Link href='/dagsorden'>
+          {/* <Link href='/dagsorden'>
             <div className={styles.card}>
               <h3>Dagsorden &rarr;</h3>
               <p>Sett opp dagsorden med dokumenter og forslag.</p>
@@ -40,7 +40,7 @@ export default function Home() {
             <div className={styles.card}>
               <h3>Voteringer &rarr;</h3>
               <p>Styr voteringer, og åpne for stemmegivning</p>
-            </div>
+            </div> */}
           </Link>
 
           <Link href='/skjermgrafikk'>
@@ -56,15 +56,6 @@ export default function Home() {
               <p>Kontakt Daniel Martinsen for innlogging.</p>
             </div>
           </Link>
-        </div>
-
-        <div className={styles.footer}>
-          <a className={styles.a} href='https://github.com/danielmartinsen/elevorg-ordstyrersystem'>
-            Se koden bak prosjektet &rarr;
-          </a>
-          <a className={styles.a} href='https://elev.no'>
-            Les mer om Elevorganisasjonen &rarr;
-          </a>
         </div>
       </main>
     </div>
